@@ -1,0 +1,37 @@
+.com-sap-validatecsv .sapUiResponsiveMargin {
+    margin: 1rem;
+}
+
+.com-sap-validatecsv .sapUiMediumMargin {
+    margin: 2rem;
+}
+
+.com-sap-validatecsv .sapUiTinyMarginTop {
+    margin-top: 0.5rem;
+}
+
+.com-sap-validatecsv .sapUiTinyMarginBottom {
+    margin-bottom: 0.5rem;
+}
+
+.com-sap-validatecsv .sapUiTinyMarginEnd {
+    margin-right: 0.5rem;
+}
+
+.com-sap-validatecsv .invalidRowHighlight {
+    background-color: #ffeaa7;
+}
+
+.com-sap-validatecsv .validationError {
+    color: #d63031;
+}
+
+.com-sap-validatecsv .validationSuccess {
+    color: #00b894;
+}
+
+.custom-height {
+    height: 10vh; /* Set height to 20% of the viewport height */
+    max-height: 10vh; /* Ensure it doesn't exceed 20% of the viewport height */
+    /* Add scrolling if content overflows */
+}
