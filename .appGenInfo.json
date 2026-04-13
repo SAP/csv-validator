@@ -1,0 +1,24 @@
+{
+  "generationParameters": {
+    "generationDate": "Fri Oct 17 2025 08:29:47 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "None",
+    "metadataFilename": "",
+    "serviceUrl": "N/A",
+    "appName": "validatecsv",
+    "appTitle": "CSV Validator",
+    "appDescription": "An SAP Fiori application.",
+    "appNamespace": "com.sap.validatecsv",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.141.1",
+    "enableCodeAssist": false,
+    "enableEslint": false,
+    "enableTypeScript": false,
+    "showMockDataInfo": false,
+    "generatorVersion": "1.19.1",
+    "template": "Basic",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```"
+  }
+}
