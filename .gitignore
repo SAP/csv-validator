@@ -8,3 +8,8 @@ mta-*
 resources
 archive.zip
 .*_mta_build_tmp
+
+# Claude Code
+.claude/
+claude.md
+CLAUDE.md
