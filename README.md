@@ -4,7 +4,7 @@
 
 ## About this project
 
-{The tool validates CSV files in a format that is consumable by SAP SuccessFactors integration center in its initial use case, but the tool can be used for other SAP solutions. Comma-separated values (CSV) are plain text files (.csv) used for storing structured, tabular data, where each line represents a row and commas separate fields. CSV validation is used for data exchange.}
+The tool validates CSV files in a format that is consumable by SAP SuccessFactors integration center in its initial use case, but the tool can be used for other SAP solutions. Comma-separated values (CSV) are plain text files (.csv) used for storing structured, tabular data, where each line represents a row and commas separate fields. CSV validation is used for data exchange.
 
 ## Requirements and Setup
 
