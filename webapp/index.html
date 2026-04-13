@@ -4,16 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CSV Validator</title>
+    <meta name="description" content="CSV File Validator and UTF-8 Compliance Tool for SuccessFactors Integration Center. Automatically detect and resolve character encoding issues, validate delimiters, headers, and field lengths. Get instant validation results for seamless CSV file processing.">
+    <title>CSV Validator - UTF-8 Compliance Tool for SuccessFactors</title>
     <style>
-        html, body, body > div, #container, #container-uiarea {
+        html, body, body > div, #container, #container-uiarea, main {
             height: 100%;
+        }
+        /* Add main landmark for accessibility */
+        #container-uiarea {
+            display: contents;
+        }
+        /* Professional font sizing and styling */
+        .sapMText {
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .sapMTitle {
+            font-weight: 600;
+        }
+        /* Highlight issues in original content */
+        .highlightedIssue {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        /* Clickable row styling */
+        .sapUiTableRow:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.03) !important;
+        }
+        /* Issue highlighting in dialog */
+        .issueOriginal {
+            background-color: #f8d7da;
+            padding: 8px;
+            border-left: 4px solid #dc3545;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+        .issueCorrected {
+            background-color: #d4edda;
+            padding: 8px;
+            border-left: 4px solid #28a745;
+            border-radius: 4px;
+        }
+        .issueHighlight {
+            background-color: #ffc107;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 2px;
         }
     </style>
     <script
         id="sap-ui-bootstrap"
         src="resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_fiori_3"
+        data-sap-ui-theme="sap_horizon"
         data-sap-ui-resource-roots='{
     "com.sap.validatecsv": "./",
     "validator.lib": "/js/"
@@ -25,12 +70,14 @@
     ></script>
 </head>
 <body class="sapUiBody sapUiSizeCompact" id="content">
-    <div
-        data-sap-ui-component
-        data-name="com.sap.validatecsv"
-        data-id="container"
-        data-settings='{"id" : "validatecsv"}'
-        data-handle-validation="true"
-    ></div>
+    <main>
+        <div
+            data-sap-ui-component
+            data-name="com.sap.validatecsv"
+            data-id="container"
+            data-settings='{"id" : "validatecsv"}'
+            data-handle-validation="true"
+        ></div>
+    </main>
 </body>
 </html>

@@ -1,65 +1,37 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:table="sap.ui.table" controllerName="com.sap.validatecsv.controller.Main">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:core="sap.ui.core" controllerName="com.sap.validatecsv.controller.Main">
 
-    <VBox id="_IDDescBox" class="sapUiMediumMargin">
+    <VBox id="_IDDescBox" class="sapUiSmallMargin">
 
         <!-- Upload Section -->
         <Panel id="_IDGenPanel" headerText="CSV File Validator and UTF-8 Compliance Tool" class="sapUiResponsiveMargin">
             <content>
                 <VBox id="_IDGenVBox1">
-                    <Text text="Upload your CSV files to automatically detect and resolve character encoding issues. This tool validates files for SuccessFactors Integration Center import requirements, including UTF-8 compliance, proper delimiters, unique headers, and field length limits. Get instant validation results with suggested corrections to ensure your files are ready for seamless processing."/>
+                    <UploadCollection id="uploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="false" instantUpload="false" sameFilenameAllowed="false" uploadEnabled="true" fileType="csv" noDataDescription="Drop files or use the &quot;Add&quot; button" change="onFileChange" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" mode="SingleSelect"/>
 
-                    <UploadCollection id="uploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="false" instantUpload="false" sameFilenameAllowed="false" uploadEnabled="true" fileType="csv" noDataDescription="Drop files or use the &quot;Add&quot; button to keep files ready for upload" change="onFileChange" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" mode="SingleSelect"/>
-
-                    <Button id="_IDGenButton" text="Validate File" press="onValidateFile" type="Emphasized" tooltip="Perform UTF-8 validation" enabled="{= ${/uploadedFile} !== null}" class="sapUiTinyMarginTop"/>
+                    <HBox id="_IDGenHBox2" class="sapUiTinyMarginTop">
+                        <Button id="_IDGenButton" text="Validate" press="onValidateFile" type="Emphasized" enabled="{= ${/uploadedFile} !== null}" class="sapUiTinyMarginEnd"/>
+                        <Button id="_IDGenButton3" text="Download Corrected" press="onDownloadCorrected" type="Accept" visible="{= ${/validationResults/invalidRowsArray/length} > 0}" class="sapUiTinyMarginEnd"/>
+                        <Button id="_IDGenButton4" text="Clear" press="onClearResults" type="Neutral" visible="{= ${/validationResults/isValid} !== null}"/>
+                    </HBox>
                 </VBox>
             </content>
         </Panel>
 
         <!-- Validation Results Section -->
-        <Panel id="_IDGenPanel1" headerText="Validation Results" class="sapUiResponsiveMargin" visible="{= ${/validationResults/isValid} !== null}" expandable="true" expanded="false">
+        <Panel id="_IDGenPanel1" headerText="Validation Results" class="sapUiResponsiveMargin" visible="{= ${/validationResults/isValid} !== null}">
             <content>
-                <VBox id="_IDGenVBox2">
-                    <!-- Status -->
-                    <MessageStrip id="_IDGenMessageStrip" text="{= ${/validationResults/isValid} ? 'File is valid and SuccessFactors compliant' : 'File contains validation issues - see details below'}" type="{= ${/validationResults/isValid} ? 'Success' : 'Error'}" class=""/>
+                <VBox id="_IDGenVBox2" class="sapUiSmallMargin">
+                    <MessageStrip id="_IDGenMessageStrip" text="{= ${/validationResults/isValid} ? 'File is valid and SuccessFactors compliant' : 'File contains validation issues - see details below'}" type="{= ${/validationResults/isValid} ? 'Success' : 'Error'}" showIcon="true"/>
 
-                    <!-- File Info -->
-                    <VBox id="_IDGenVBox3" class="sapUiTinyMarginTop">
-                        <Label id="_IDGenLabel" text="Detected Encoding: {/validationResults/encoding}" class=""/>
-                        <Label id="_IDGenLabel1" text="Total Rows: {/validationResults/totalRows}" class=""/>
-                        <Label id="_IDGenLabel8" text="Data Rows: {/validationResults/stats/dataRows}" class=""/>
-                        <Label id="_IDGenLabel10" text="Max Field Length: {/validationResults/stats/maxFieldLength} characters" class=""/>
-                        <Label id="_IDGenLabel9" text="Total Errors: {/validationResults/errors/length}" class="" visible="{= ${/validationResults/errors/length} > 0}"/>
-                        <Label id="_IDGenLabel2" text="Rows with Issues: {/validationResults/invalidRowsArray/length}" class="" visible="{= ${/validationResults/invalidRowsArray/length} > 0}"/>
-                        <Label id="_IDGenLabel11" text="Warnings: {/validationResults/warnings/length}" class="" visible="{= ${/validationResults/warnings/length} > 0}"/>
-                    </VBox>
-
-                    <!-- Display All Errors (Collapsible) -->
-                    <Panel id="_IDGenPanel4" 
-                           headerText="Validation Errors ({/validationResults/errors/length})" 
-                           class="sapUiTinyMarginTop" 
-                           visible="{= ${/validationResults/errors/length} > 0}"
-                           expandable="true"
-                           expanded="false">
-                        <content>
-                            <List id="errorsList" items="{/validationResults/errors}">
-                                <StandardListItem id="_IDGenStandardListItem" title="{}" type="Inactive"/>
-                            </List>
-                        </content>
-                    </Panel>
-
-                    <!-- Display All Warnings (Collapsible) -->
-                    <Panel id="_IDGenPanel6" 
-                           headerText="Warnings ({/validationResults/warnings/length})" 
-                           class="sapUiTinyMarginTop" 
-                           visible="{= ${/validationResults/warnings/length} > 0}"
-                           expandable="true"
-                           expanded="false">
-                        <content>
-                            <List id="warningsList" items="{/validationResults/warnings}">
-                                <StandardListItem id="_IDGenStandardListItem2" title="{}" type="Inactive"/>
-                            </List>
-                        </content>
-                    </Panel>
+                    <HBox id="_IDGenHBox10" class="sapUiTinyMarginTop" wrap="Wrap">
+                        <Label id="_IDGenLabel" text="Encoding: {/validationResults/encoding}" class="sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
+                        <Label id="_IDGenLabel1" text="Total Rows: {/validationResults/totalRows}" class="sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
+                        <Label id="_IDGenLabel8" text="Data Rows: {/validationResults/stats/dataRows}" class="sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
+                        <Label id="_IDGenLabel10" text="Max Length: {/validationResults/stats/maxFieldLength}" class="sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
+                        <Label id="_IDGenLabel9" text="Errors: {/validationResults/errors/length}" class="sapUiSmallMarginEnd sapUiTinyMarginBottom" visible="{= ${/validationResults/errors/length} > 0}"/>
+                        <Label id="_IDGenLabel2" text="Issues: {/validationResults/invalidRowsArray/length}" class="sapUiSmallMarginEnd sapUiTinyMarginBottom" visible="{= ${/validationResults/invalidRowsArray/length} > 0}"/>
+                        <Label id="_IDGenLabel11" text="Warnings: {/validationResults/warnings/length}" class="sapUiTinyMarginBottom" visible="{= ${/validationResults/warnings/length} > 0}"/>
+                    </HBox>
                 </VBox>
             </content>
         </Panel>
@@ -67,30 +39,51 @@
         <!-- Invalid Rows Table -->
         <Panel id="_IDGenPanel2" headerText="Rows Requiring Correction" class="sapUiResponsiveMargin" visible="{= ${/validationResults/invalidRowsArray/length} > 0}">
             <content>
-                <table:Table id="invalidRowsTable" rows="{/validationResults/invalidRowsArray}" selectionMode="None" visibleRowCount="10" enableSelectAll="false">
-                    <table:columns>
-                        <table:Column id="_IDGenColumn1" width="100px">
+                <HBox id="_IDGenHBox20" class="sapUiTinyMarginBottom" alignItems="Center">
+                    <Label id="_IDGenLabel20" text="Filter by Issue Type:" class="sapUiTinyMarginEnd"/>
+                    <Select id="issueTypeFilter" width="250px" change="onIssueTypeFilterChange" selectedKey="{/selectedIssueType}">
+                        <items>
+                            <core:Item key="" text="All"/>
+                            <core:Item key="contains HTML entities" text="contains HTML entities"/>
+                            <core:Item key="contains HTML tags" text="contains HTML tags"/>
+                            <core:Item key="contains HTML tags; contains HTML entities" text="contains HTML tags; contains HTML entities"/>
+                        </items>
+                    </Select>
+                </HBox>
+                <VBox id="_IDGenVBox4">
+                    <table:Table id="invalidRowsTable" rows="{/validationResults/filteredInvalidRows}" selectionMode="None" visibleRowCount="5" enableSelectAll="false" rowActionCount="1" cellClick="onCellClick" enableColumnReordering="true" filter="onFilterTable" enableColumnFreeze="true">
+                        <table:rowActionTemplate>
+                            <table:RowAction>
+                                <table:RowActionItem type="Navigation" press="onRowPress" icon="sap-icon://detail-view" tooltip="View Details"/>
+                            </table:RowAction>
+                        </table:rowActionTemplate>
+                        <table:columns>
+                        <table:Column id="_IDGenColumn1" width="100px" filterProperty="rowNumber" showFilterMenuEntry="true" showSortMenuEntry="true">
                             <Label id="_IDGenLabel3" text="Row Number"/>
                             <table:template>
                                 <Text id="_IDGenText" text="{rowNumber}"/>
                             </table:template>
                         </table:Column>
 
-                        <table:Column id="_IDGenColumn2" width="200px">
-                            <Label id="_IDGenLabel4" text="Issue Type"/>
+                        <table:Column id="_IDGenColumn2" width="200px" filterProperty="issueType" showFilterMenuEntry="true" showSortMenuEntry="true">
+                            <Label id="_IDGenLabel4" text="Issue Type">
+                                <customData>
+                                    <core:CustomData key="filterType" value="dropdown" writeToDom="false"/>
+                                </customData>
+                            </Label>
                             <table:template>
                                 <Text id="_IDGenText1" text="{issueType}" wrapping="true"/>
                             </table:template>
                         </table:Column>
 
-                        <table:Column id="_IDGenColumn3">
+                        <table:Column id="_IDGenColumn3" filterProperty="originalContent" showFilterMenuEntry="true" showSortMenuEntry="true">
                             <Label id="_IDGenLabel5" text="Original Content"/>
                             <table:template>
-                                <Text id="_IDGenText2" text="{originalContent}" wrapping="true" maxLines="3"/>
+                                <core:HTML content="{path: 'originalContent', formatter: '.formatHighlightedContent'}" />
                             </table:template>
                         </table:Column>
 
-                        <table:Column id="_IDGenColumn4">
+                        <table:Column id="_IDGenColumn4" filterProperty="suggestedFix" showFilterMenuEntry="true" showSortMenuEntry="true">
                             <Label id="_IDGenLabel6" text="Suggested Fix"/>
                             <table:template>
                                 <Text id="_IDGenText3" text="{suggestedFix}" wrapping="true" maxLines="3"/>
@@ -98,21 +91,42 @@
                         </table:Column>
                     </table:columns>
                 </table:Table>
+                </VBox>
             </content>
         </Panel>
 
         <!-- CSV Preview -->
-        <Panel id="_IDGenPanel3" headerText="CSV Preview (First 10 rows)" class="sapUiResponsiveMargin" visible="{= ${/csvData/length} > 0}" expandable="true" expanded="false">
+        <Panel id="_IDGenPanel3" headerText="Original CSV Preview (First 10 rows)" class="sapUiResponsiveMargin" visible="{= ${/csvData/length} > 0}">
             <content>
-                <table:Table id="csvPreviewTable" rows="{/csvData}" selectionMode="None" visibleRowCount="10" enableSelectAll="false">
-                </table:Table>
+                <VBox id="_IDGenVBox5">
+                    <table:Table id="csvPreviewTable" rows="{/csvData}" selectionMode="None" visibleRowCount="5" enableSelectAll="false" enableColumnReordering="true" filter="onFilterTable">
+                    </table:Table>
+                </VBox>
             </content>
         </Panel>
 
-        <!-- Action Buttons -->
-        <HBox id="_IDGenHBox" class="sapUiMediumMarginTop" visible="{= ${/validationResults/isValid} !== null}">
-            <Button id="_IDGenButton1" text="Download Corrected File" press="onDownloadCorrected" type="Accept" visible="{= ${/validationResults/invalidRowsArray/length} > 0}" tooltip="Download file with all corrections applied" class="sapUiTinyMarginEnd"/>
-            <Button id="_IDGenButton2" text="Clear Results" press="onClearResults" type="Neutral" tooltip="Clear the file selection and all results"/>
-        </HBox>
+        <!-- Row Detail Dialog -->
+        <Dialog id="rowDetailDialog" title="Row Details" contentWidth="90%" contentHeight="auto" resizable="true" draggable="true">
+            <content>
+                <VBox class="sapUiSmallMargin">
+                    <Title text="Row Number: {/selectedRow/rowNumber}" level="H4" class="sapUiSmallMarginBottom"/>
+                    <Label text="Issue Type:" class="sapUiTinyMarginBottom" design="Bold"/>
+                    <Text text="{/selectedRow/issueType}" class="sapUiSmallMarginBottom"/>
+
+                    <Title text="Original Content" level="H5" class="sapUiSmallMarginTop sapUiTinyMarginBottom"/>
+                    <VBox class="issueOriginal">
+                        <core:HTML content="{path: '/selectedRow/originalContent', formatter: '.formatDialogHighlightedContent'}" />
+                    </VBox>
+
+                    <Title text="Corrected Content" level="H5" class="sapUiSmallMarginTop sapUiTinyMarginBottom"/>
+                    <VBox class="issueCorrected">
+                        <core:HTML content="{path: '/selectedRow/suggestedFix', formatter: '.formatDialogCorrectedContent'}" />
+                    </VBox>
+                </VBox>
+            </content>
+            <beginButton>
+                <Button text="Close" press="onCloseDialog"/>
+            </beginButton>
+        </Dialog>
     </VBox>
 </mvc:View>
