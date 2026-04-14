@@ -125,7 +125,7 @@ sap.ui.define([
 
         _createPreviewTable: function (aHeaders, cdata) {
             var oTable = this.byId("csvPreviewTable");
-            
+
             // Clear existing columns
             oTable.destroyColumns();
 
@@ -134,9 +134,10 @@ sap.ui.define([
                 var sHeader = aHeaders[i] || "Column" + (i + 1);
                 var oColumn = new Column({
                     label: new Label({ text: sHeader }),
-                    template: new Text({ 
+                    template: new Text({
                         text: "{" + sHeader + "}",
-                        wrapping: false
+                        wrapping: true,
+                        maxLines: 3
                     })
                 });
                 oTable.addColumn(oColumn);
