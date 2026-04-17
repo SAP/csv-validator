@@ -11,7 +11,7 @@ The tool validates CSV files in a format that is consumable by SAP SuccessFactor
 An SAP Fiori application.
 
 ### Running the app locally
-- Clone the repository at https://github.com/SAP/csv-validator
+- Clone the repository at (https://github.com/SAP/csv-validator)
 - Go to folder stucture
 - Start powershell
 - Run the following commands
